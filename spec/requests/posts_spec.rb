@@ -1,32 +1,59 @@
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :request do
-  describe "GET /index" do
-    it "returns http success" do
-      get "/posts/index"
-      expect(response).to have_http_status(:success)
+describe "Posts", type: :request do
+  let!(:user) { create(:user) }
+  let!(:post_record) { create(:post, user: user) } # don't call it :post
+
+  describe "index" do
+    it "returns ok" do
+      get posts_path
+      expect(response).to have_http_status(:ok)
     end
   end
 
-  describe "GET /show" do
-    it "returns http success" do
-      get "/posts/show"
-      expect(response).to have_http_status(:success)
+  describe "show" do
+    it "returns ok" do
+      get post_path(post_record)
+      expect(response).to have_http_status(:ok)
     end
   end
 
-  describe "GET /new" do
-    it "returns http success" do
-      get "/posts/new"
-      expect(response).to have_http_status(:success)
+  describe "new" do
+    it "returns ok" do
+      get new_post_path
+      expect(response).to have_http_status(:ok)
     end
   end
 
-  describe "GET /edit" do
-    it "returns http success" do
-      get "/posts/edit"
-      expect(response).to have_http_status(:success)
+  describe "edit" do
+    it "returns ok" do
+      get edit_post_path(post_record)
+      expect(response).to have_http_status(:ok)
     end
   end
 
+  describe "create" do
+    it "creates and redirects" do
+      expect {
+        post posts_path, params: { post: attributes_for(:post, user_id: user.id) }
+      }.to change(Post, :count).by(1)
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
+  describe "update" do
+    it "updates and redirects" do
+      patch post_path(post_record), params: { post: { title: "New Title" } }
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
+  describe "destroy" do
+    it "destroys and redirects" do
+      expect {
+        delete post_path(post_record)
+      }.to change(Post, :count).by(-1)
+      expect(response).to have_http_status(:redirect)
+    end
+  end
 end
