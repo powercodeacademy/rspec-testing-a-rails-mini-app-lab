@@ -13,7 +13,7 @@ describe '[LAB CHECKER] Model Spec Requirements' do
 
     next unless File.exist?(path)
     content = File.read(path)
-    it_blocks = content.scan(/it\s+['"][^'"]*['"]\s*(do[\s\S]*?end|\{[\s\S]*?\})/)
+    it_blocks = content.scan(/it\s+['"][^'"]*['"]\s*(?:do[\s\S]*?end|\{[\s\S]*?\})/m)
     describe_block = content.match(/(RSpec\.)?describe\s+#{model}/)
 
     it "#{file} uses describe (or RSpec.describe), type: :model, and at least 2 it blocks for #{model}" do

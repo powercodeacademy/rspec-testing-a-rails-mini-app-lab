@@ -14,7 +14,7 @@ describe '[LAB CHECKER] Request Spec Requirements' do
 
     next unless File.exist?(path)
     content = File.read(path)
-    it_blocks = content.scan(/it\s+['"][^'"]*['"]\s*(do[\s\S]*?end|\{[\s\S]*?\})/)
+    it_blocks = content.scan(/it\s+['"][^'"]*['"]\s*(?:do[\s\S]*?end|\{[\s\S]*?\})/)
     describe_block = content.match(/describe\s+['"]#{resource}/)
 
     it "#{file} uses describe and at least 2 it blocks for #{resource}Controller" do

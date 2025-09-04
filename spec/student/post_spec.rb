@@ -12,7 +12,7 @@ RSpec.describe Post, type: :model do
     expect(Post.reflect_on_association(:user).macro).to eq(:belongs_to)
   end
 
-  it "cannot be made without a user" do
+  it "validates presence of a user" do
     post = Post.create(title: "Example", body: "Example body")
     expect(post).not_to be_valid
     expect(post.errors[:user]).to include("must exist")
