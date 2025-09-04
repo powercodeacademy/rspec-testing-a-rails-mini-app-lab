@@ -1,4 +1,21 @@
-# spec/student/post_spec.rb
-# Write your model specs for the Post model here.
+require 'rails_helper'
 
-# Use describe and it blocks as shown in the lessons.
+RSpec.describe Post, type: :model do
+  subject(:post) { build(:post) }
+  let(:persisted_post) { create(:post) }
+
+  it "belongs_to a user (association)" do
+    user = create(:user)
+    post = create(:post, user: user)
+
+    expect(post.user).to eq(user)
+    expect(Post.reflect_on_association(:user).macro).to eq(:belongs_to)
+  end
+
+  it "cannot be made without a user" do
+    post = Post.create(title: "Example", body: "Example body")
+    expect(post).not_to be_valid
+    expect(post.errors[:user]).to include("must exist")
+  end
+
+end
