@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   end
 
   it "can have many posts" do 
-    user = FactoryBot.create(:user) 
+    user = FactoryBot.create(:user, email: "ownerofposts@test.com") 
     post1 = FactoryBot.create(:post, user: user) 
     post2 = FactoryBot.create(:post, user: user) 
     expect(user.posts).to contain_exactly(post1, post2) 
