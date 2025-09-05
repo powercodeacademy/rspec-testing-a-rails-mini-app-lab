@@ -1,8 +1,8 @@
 require 'rails_helper' 
 
-RSpec.describe "Users index page", type: :system do 
-  let(:user1) { FactoryBot.create(:user, name: "Nihar", email: "nihar@nihar.com") }
-  let(:user2) { FactoryBot.create(:user, name: "Mike", email: "mike@mike.com") }
+RSpec.describe "Users index page", type: :feature do 
+  let!(:user1) { FactoryBot.create(:user, name: "Nihar", email: "nihar@nihar.com") }
+  let!(:user2) { FactoryBot.create(:user, name: "Mike", email: "mike@mike.com") }
 
   before { visit users_path }
   
@@ -19,10 +19,10 @@ RSpec.describe "Users index page", type: :system do
   end 
 end
 
-RSpec.describe "Posts index page", type: :system do 
-  let(:user) { FactoryBot.create(:user, name: "Stove", email: "stove@stove.com") }
-  let(:post1) { FactoryBot.create(:post, title: "First Post", body: "First Body", user: user) }
-  let(:post2) { FactoryBot.create(:post, title: "Second Post", body: "Second Body", user: user) }
+RSpec.describe "Posts index page", type: :feature do 
+  let!(:user) { FactoryBot.create(:user, name: "Stove", email: "stove@stove.com") }
+  let!(:post1) { FactoryBot.create(:post, title: "First Post", body: "First Body", user: user) }
+  let!(:post2) { FactoryBot.create(:post, title: "Second Post", body: "Second Body", user: user) }
 
   before { visit posts_path }
   
