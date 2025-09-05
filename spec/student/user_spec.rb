@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:posts).dependent(:destroy) }
 
   it "is valid with valid attributes" do 
-    user = FactoryBot.build(:user)
+    user = FactoryBot.build(:user, email: "uniqueemail@test.com")
     expect(user).to be_valid 
   end 
 
