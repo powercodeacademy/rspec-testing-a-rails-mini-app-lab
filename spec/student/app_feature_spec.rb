@@ -31,14 +31,15 @@ RSpec.describe "Posts index page", type: :system do
     expect(page).to have_content "All Posts" 
 
     within("table") do 
-      within("tr", text: "First Post").do 
+      within("tr", text: "First Post") do 
         expect(page).to have_content("First Body")
         expect(page).to have_content("Stove") 
       end
 
-      within("tr", text: "Second Post").do 
+      within("tr", text: "Second Post") do 
         expect(page).to have_content("Second Body")
         expect(page).to have_content("Stove") 
       end
     end 
   end
+end
